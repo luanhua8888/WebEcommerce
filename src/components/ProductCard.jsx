@@ -34,7 +34,7 @@ const toggleWishlist = () => {
 }
 
 return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden relative">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden relative flex flex-col h-full">
       <button
         onClick={toggleWishlist}
         className="absolute top-2 right-2 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
@@ -54,25 +54,25 @@ return (
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover hover:opacity-90 transition-opacity"
+          className="w-full h-52 sm:h-48 object-cover hover:opacity-90 transition-opacity"
         />
       </Link>
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-grow">
         <Link to={`/products/${product.id}`}>
-          <h3 className="text-lg font-semibold text-gray-800 hover:text-primary">
+          <h3 className="text-lg font-semibold text-gray-800 hover:text-primary line-clamp-2">
             {product.name}
           </h3>
         </Link>
-        <p className="text-gray-600 mt-1">{product.category}</p>
-        <div className="flex justify-between items-center mt-4">
-          <span className="text-lg font-bold text-primary">
+        <p className="text-gray-600 mt-1 mb-2">{product.category}</p>
+        <div className="mt-auto">
+          <span className="block text-xl font-bold text-primary mb-3">
             {product.price.toLocaleString('vi-VN')}₫
           </span>
-          <div className="flex gap-2">
-            <CompareButton product={product} />
+          <div className="grid grid-cols-2 gap-2 w-full">
+            <CompareButton product={product} className="w-full" />
             <button
               onClick={handleAddToCart}
-              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark"
+              className="w-full bg-primary text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-dark text-sm sm:text-base transition-colors"
             >
               Thêm vào giỏ
             </button>

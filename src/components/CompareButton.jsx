@@ -6,7 +6,7 @@ import {
   selectCanAddToCompare,
 } from '../store/compareSlice'
 
-export default function CompareButton({ product }) {
+export default function CompareButton({ product, className = '' }) {
   const dispatch = useDispatch()
   const isInCompare = useSelector((state) => selectIsInCompare(state, product.id))
   const canAdd = useSelector(selectCanAddToCompare)
@@ -22,7 +22,7 @@ export default function CompareButton({ product }) {
   return (
     <button
       onClick={handleToggleCompare}
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${
+      className={`flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg text-xs sm:text-sm ${className} ${
         isInCompare
           ? 'bg-primary text-white hover:bg-primary-dark'
           : canAdd
