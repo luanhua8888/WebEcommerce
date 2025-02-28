@@ -21,7 +21,7 @@ export default function NavbarMobile({ onLogout }) {
       {/* Mobile Menu Button */}
       <button
         onClick={toggleMenu}
-        className="p-2 rounded-lg hover:bg-gray-100"
+        className="p-2 rounded-lg hover:bg-white/10 transition-all duration-300 absolute right-0 top-1/2 -translate-y-1/2"
         aria-label="Menu"
       >
         <svg
@@ -52,18 +52,18 @@ export default function NavbarMobile({ onLogout }) {
       <div
         className={`${
           isOpen ? 'flex' : 'hidden'
-        } fixed inset-0 z-50 bg-white`}
+        } fixed inset-0 z-50 bg-white/95 backdrop-blur-md`}
       >
         <div className="w-full h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center justify-between p-4 border-b border-white/20 bg-gradient-primary">
             <Link
               to="/"
-              className="text-xl font-bold text-primary flex items-center gap-2"
+              className="text-2xl font-extrabold text-white flex items-center gap-2 transition-all duration-300 hover:scale-105"
               onClick={() => setIsOpen(false)}
             >
-              <ElectronicsIcon className="w-6 h-6" />
-              E-Shop
+              <ElectronicsIcon className="w-7 h-7" />
+              MinLun Shop
             </Link>
             <button
               onClick={toggleMenu}

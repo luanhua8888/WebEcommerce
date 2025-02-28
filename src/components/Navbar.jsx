@@ -22,24 +22,24 @@ function Navbar() {
       {/* Add padding to body for fixed navbar */}
       <div className="h-16"></div>
       
-      <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+      <nav className="bg-white/80 backdrop-blur-md shadow-lg fixed top-0 left-0 right-0 z-50 border-b border-white/20">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
+          <div className="relative flex justify-between items-center h-16">
             {/* Logo - visible on all screens */}
-            <Link to="/" className="text-xl font-bold text-primary flex items-center gap-2">
-              <ElectronicsIcon className="w-6 h-6" />
-              <span className="hidden sm:inline">E-Shop</span>
+            <Link to="/" className="text-2xl font-extrabold bg-gradient-primary bg-clip-text text-transparent flex items-center gap-2 transform transition-all duration-300 hover:scale-105 hover:-rotate-2 absolute left-1/2 -translate-x-1/2 lg:relative lg:left-0 lg:translate-x-0">
+              <ElectronicsIcon className="w-7 h-7" />
+              <span className="inline">MinLun Shop</span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               {/* Navigation Links */}
-              <Link to="/" className="text-gray-700 hover:text-primary flex items-center gap-2">
+              <Link to="/" className="text-gray-700 hover:text-primary flex items-center gap-2 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary after:transition-all after:duration-300">
                 <HomeIcon className="w-5 h-5" />
                 <span>Trang chủ</span>
               </Link>
               
-              <Link to="/products" className="text-gray-700 hover:text-primary flex items-center gap-2">
+              <Link to="/products" className="text-gray-700 hover:text-primary flex items-center gap-2 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary after:transition-all after:duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                 </svg>
@@ -48,21 +48,21 @@ function Navbar() {
 
               {/* Wishlist & Cart */}
               <div className="flex items-center space-x-4">
-                <Link to="/wishlist" className="relative flex items-center">
+                <Link to="/wishlist" className="relative flex items-center transform transition-transform duration-300 hover:scale-110">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-700 hover:text-primary">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                   </svg>
                   {wishlistCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
                       {wishlistCount}
                     </span>
                   )}
                 </Link>
 
-                <Link to="/cart" className="relative flex items-center">
+                <Link to="/cart" className="relative flex items-center transform transition-transform duration-300 hover:scale-110">
                   <CartIcon className="w-6 h-6 text-gray-700 hover:text-primary" />
                   {itemCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
                       {itemCount}
                     </span>
                   )}

@@ -1,11 +1,16 @@
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { products, categories } from '../data/products'
-import ProductCard from '../components/ProductCard'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { useSearchParams, Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { categories } from '../data/products'
+import { selectAllProducts } from '../store/productsSlice'
+import LazyLoadedProduct from '../components/LazyLoadedProduct'
 import { CategoryIcon, SearchIcon } from '../components/Icons'
 
 function Products() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const products = useSelector(selectAllProducts)
+  const { user } = useSelector(state => state.auth)
+  const isAdmin = user?.role === 'admin'
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [selectedCategories, setSelectedCategories] = useState(
     searchParams.get('categories')?.split(',') || ['All']
@@ -17,10 +22,14 @@ function Products() {
     max: '',
   })
   const [showFilters, setShowFilters] = useState(false)
+  const [visibleProducts, setVisibleProducts] = useState([])
+  const [page, setPage] = useState(1)
+  const loadingRef = useRef(null)
+  const PRODUCTS_PER_PAGE = 8
 
   const maxPrice = Math.max(...products.map(p => p.price))
 
-  useEffect(() => {
+  const filterProducts = useCallback(() => {
     let result = [...products]
     
     // Apply search filter
@@ -63,7 +72,40 @@ function Products() {
     }
     
     setFilteredProducts(result)
-  }, [selectedCategories, sortBy, searchQuery, priceRange])
+    setVisibleProducts(result.slice(0, PRODUCTS_PER_PAGE))
+    setPage(1)
+  }, [selectedCategories, sortBy, searchQuery, priceRange, products, PRODUCTS_PER_PAGE])
+
+  useEffect(() => {
+    filterProducts()
+  }, [filterProducts])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const firstEntry = entries[0]
+        if (firstEntry.isIntersecting && visibleProducts.length < filteredProducts.length) {
+          const nextProducts = filteredProducts.slice(
+            visibleProducts.length,
+            visibleProducts.length + PRODUCTS_PER_PAGE
+          )
+          setVisibleProducts(prev => [...prev, ...nextProducts])
+          setPage(prev => prev + 1)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (loadingRef.current) {
+      observer.observe(loadingRef.current)
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect()
+      }
+    }
+  }, [visibleProducts, filteredProducts, PRODUCTS_PER_PAGE])
 
   const handleCategoryChange = (category) => {
     setSelectedCategories(prev => {
@@ -201,7 +243,7 @@ function Products() {
           {/* Sort and Results Count */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4 md:p-0 border-t md:border-0">
             <p className="text-sm text-gray-600">
-              Hiển thị {filteredProducts.length} sản phẩm
+              Hiển thị {visibleProducts.length} / {filteredProducts.length} sản phẩm
             </p>
             <select
               value={sortBy}
@@ -218,12 +260,37 @@ function Products() {
         </div>
       </div>
 
+      {/* Admin Actions */}
+      {isAdmin && (
+        <div className="mb-6">
+          <Link
+            to="/products/add"
+            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Thêm sản phẩm
+          </Link>
+        </div>
+      )}
+
       {/* Products Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-        {filteredProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
+        {visibleProducts.map(product => (
+          <LazyLoadedProduct key={product.id} product={product} />
         ))}
       </div>
+
+      {/* Loading Indicator */}
+      {visibleProducts.length < filteredProducts.length && (
+        <div
+          ref={loadingRef}
+          className="flex items-center justify-center p-4 mt-4"
+        >
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
 
       {/* Empty State */}
       {filteredProducts.length === 0 && (

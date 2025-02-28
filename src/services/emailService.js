@@ -24,7 +24,7 @@ const generateOrderConfirmationEmail = (order, user) => {
     content: `
       Xin chào ${user.name},
 
-      Cảm ơn bạn đã đặt hàng tại E-Shop. Đơn hàng của bạn đã được xác nhận.
+      Cảm ơn bạn đã đặt hàng tại MinLun Shop. Đơn hàng của bạn đã được xác nhận.
 
       Thông tin đơn hàng:
       Mã đơn hàng: #${order.id}
@@ -45,7 +45,7 @@ const generateOrderConfirmationEmail = (order, user) => {
       Chúng tôi sẽ thông báo cho bạn khi đơn hàng được gửi đi.
 
       Trân trọng,
-      E-Shop Team
+      MinLun Shop Team
     `,
   }
 }
@@ -53,11 +53,11 @@ const generateOrderConfirmationEmail = (order, user) => {
 const generateWelcomeEmail = (user) => {
   return {
     to: user.email,
-    subject: 'Chào mừng bạn đến với E-Shop',
+    subject: 'Chào mừng bạn đến với MinLun Shop',
     content: `
       Xin chào ${user.name},
 
-      Chào mừng bạn đến với E-Shop! Chúng tôi rất vui mừng vì bạn đã tham gia cùng chúng tôi.
+      Chào mừng bạn đến với MinLun Shop! Chúng tôi rất vui mừng vì bạn đã tham gia cùng chúng tôi.
 
       Tài khoản của bạn đã được tạo thành công. Bạn có thể:
       - Mua sắm các sản phẩm chất lượng
@@ -68,7 +68,7 @@ const generateWelcomeEmail = (user) => {
       Nếu bạn cần hỗ trợ, đừng ngần ngại liên hệ với chúng tôi.
 
       Trân trọng,
-      E-Shop Team
+      MinLun Shop Team
     `,
   }
 }

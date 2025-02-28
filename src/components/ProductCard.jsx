@@ -34,10 +34,10 @@ const toggleWishlist = () => {
 }
 
 return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden relative flex flex-col h-full">
+    <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md overflow-hidden relative flex flex-col h-full transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl border border-white/20">
       <button
         onClick={toggleWishlist}
-        className="absolute top-2 right-2 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+        className="absolute top-2 right-2 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-all duration-300 transform hover:scale-110 active:scale-90"
       >
         {isInWishlist ? (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-red-500">
@@ -54,10 +54,14 @@ return (
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-52 sm:h-48 object-cover hover:opacity-90 transition-opacity"
+          className="w-full h-52 sm:h-48 object-cover transition-all duration-500 hover:opacity-90 hover:scale-110"
+          onError={(e) => {
+            e.target.src = 'https://i.imgur.com/lC6QQZn.png'
+          }}
         />
       </Link>
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="relative p-4 flex flex-col flex-grow overflow-hidden">
+        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
         <Link to={`/products/${product.id}`}>
           <h3 className="text-lg font-semibold text-gray-800 hover:text-primary line-clamp-2">
             {product.name}
@@ -65,14 +69,17 @@ return (
         </Link>
         <p className="text-gray-600 mt-1 mb-2">{product.category}</p>
         <div className="mt-auto">
-          <span className="block text-xl font-bold text-primary mb-3">
-            {product.price.toLocaleString('vi-VN')}₫
-          </span>
+          <div className="relative mb-3 group">
+            <span className="block text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent transform transition-all duration-300 group-hover:scale-110">
+              {product.price.toLocaleString('vi-VN')}₫
+            </span>
+            <div className="absolute -inset-1 bg-gradient-primary opacity-20 rounded-lg blur group-hover:opacity-30 transition-opacity"></div>
+          </div>
           <div className="grid grid-cols-2 gap-2 w-full">
             <CompareButton product={product} className="w-full" />
             <button
               onClick={handleAddToCart}
-              className="w-full bg-primary text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-dark text-sm sm:text-base transition-colors"
+              className="w-full bg-gradient-primary text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:scale-105 relative overflow-hidden group"
             >
               Thêm vào giỏ
             </button>
