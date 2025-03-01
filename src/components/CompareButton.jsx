@@ -5,6 +5,7 @@ import {
   selectIsInCompare,
   selectCanAddToCompare,
 } from '../store/compareSlice'
+import { showNotification } from '../store/notificationSlice'
 
 export default function CompareButton({ product, className = '' }) {
   const dispatch = useDispatch()
@@ -14,8 +15,21 @@ export default function CompareButton({ product, className = '' }) {
   const handleToggleCompare = () => {
     if (isInCompare) {
       dispatch(removeFromCompare(product.id))
+      dispatch(showNotification({
+        message: `Đã xóa ${product.name} khỏi danh sách so sánh`,
+        type: 'info'
+      }))
     } else if (canAdd) {
       dispatch(addToCompare(product))
+      dispatch(showNotification({
+        message: `Đã thêm ${product.name} vào danh sách so sánh`,
+        type: 'success'
+      }))
+    } else {
+      dispatch(showNotification({
+        message: 'Chỉ có thể so sánh tối đa 4 sản phẩm',
+        type: 'warning'
+      }))
     }
   }
 

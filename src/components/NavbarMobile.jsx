@@ -7,10 +7,11 @@ export default function NavbarMobile({ onLogout }) {
   const [isOpen, setIsOpen] = useState(false)
   const cartItems = useSelector((state) => state.cart.items)
   const wishlistItems = useSelector((state) => state.wishlist)
-  const { isAuthenticated, user } = useSelector((state) => state.auth)
+  const { isAuthenticated, user, role } = useSelector((state) => state.auth)
 
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
   const wishlistCount = wishlistItems.length
+  const isAdmin = role === 'admin'
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -150,18 +151,46 @@ export default function NavbarMobile({ onLogout }) {
                   )}
                 </Link>
 
+                {/* Admin Dashboard Link */}
+                {/* {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="flex items-center gap-3 p-4 bg-white/80 hover:bg-primary/20 rounded-lg transition-all shadow-sm"
+                    onClick={toggleMenu}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15" />
+                    </svg>
+                    <span className="font-medium">Quản trị</span>
+                  </Link>
+                )} */}
+
                 {/* User Account Links */}
                 {isAuthenticated ? (
                   <>
                     <Link
-                      to="/profile"
+                      to={isAdmin ? "/admin" : "/profile"}
                       className="flex items-center gap-3 p-4 bg-white/80 hover:bg-primary/20 rounded-lg transition-all shadow-sm"
                       onClick={toggleMenu}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <span className="font-medium">Tài khoản</span>
+                      {isAdmin ? (
+                        <>
+                         
+                        
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15" /> 
+                          </svg>
+
+                          <span className="font-medium">Quản trị</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span className="font-medium">Tài khoản</span>
+                        </>
+                      )}
                     </Link>
 
                     <Link

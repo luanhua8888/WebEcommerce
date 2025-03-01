@@ -7,11 +7,14 @@ import NavbarMobile from './NavbarMobile'
 function Navbar() {
   const cartItems = useSelector((state) => state.cart.items)
   const wishlistItems = useSelector((state) => state.wishlist)
-  const { isAuthenticated, user } = useSelector((state) => state.auth)
+  const compareItems = useSelector((state) => state.compare.items)
+  const { isAuthenticated, user, role } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
   const wishlistCount = wishlistItems.length
+  const compareCount = compareItems.length
+  const isAdmin = role === 'admin'
 
   const handleLogout = () => {
     dispatch(logout())
@@ -59,6 +62,17 @@ function Navbar() {
                   )}
                 </Link>
 
+                <Link to="/compare" className="relative flex items-center transform transition-transform duration-300 hover:scale-110">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-700 hover:text-primary">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                  </svg>
+                  {compareCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+                      {compareCount}
+                    </span>
+                  )}
+                </Link>
+
                 <Link to="/cart" className="relative flex items-center transform transition-transform duration-300 hover:scale-110">
                   <CartIcon className="w-6 h-6 text-gray-700 hover:text-primary" />
                   {itemCount > 0 && (
@@ -77,10 +91,17 @@ function Navbar() {
                       Xin chào, <span className="font-medium">{user?.name || 'Khách'}</span>
                     </span>
                     <div className="flex items-center space-x-4">
-                      <Link to="/profile" className="text-gray-700 hover:text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                        </svg>
+                      <Link to={isAdmin ? "/admin" : "/profile"} className="text-gray-700 hover:text-primary">
+                        {isAdmin ? (
+                          // đổi quản trị
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                          </svg>
+                        ) : (
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                          </svg>
+                        )}
                       </Link>
                       <Link to="/orders" className="text-gray-700 hover:text-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

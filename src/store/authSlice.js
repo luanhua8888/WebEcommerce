@@ -4,6 +4,7 @@ import { sendWelcomeEmail } from '../services/emailService'
 const initialState = {
   user: null,
   isAuthenticated: false,
+  role: null,
 }
 
 export const authSlice = createSlice({
@@ -18,10 +19,12 @@ export const authSlice = createSlice({
     },
     login: (state, action) => {
       state.user = action.payload
+      state.role = action.payload.role
       state.isAuthenticated = true
     },
     logout: (state) => {
       state.user = null
+      state.role = null
       state.isAuthenticated = false
     },
   },

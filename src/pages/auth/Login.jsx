@@ -2,18 +2,28 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../store/authSlice'
+import { users } from '../../data/users'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // In a real app, you would make an API call here
-    dispatch(login({ email }))
-    navigate('/')
+    setError('')
+
+    const user = users.find(u => u.email === email && u.password === password)
+    
+    if (user) {
+      const { password: _, ...userWithoutPassword } = user
+      dispatch(login(userWithoutPassword))
+      navigate(user.role === 'admin' ? '/admin' : '/')
+    } else {
+      setError('Email hoặc mật khẩu không chính xác')
+    }
   }
 
   return (
@@ -61,6 +71,9 @@ export default function Login() {
             </div>
           </div>
 
+          {error && (
+            <div className="text-red-500 text-sm text-center">{error}</div>
+          )}
           <div>
             <button
               type="submit"

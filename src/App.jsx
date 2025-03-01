@@ -14,6 +14,7 @@ import Orders from './pages/Orders'
 import Profile from './pages/Profile'
 import Compare from './pages/Compare'
 import AddProduct from './pages/AddProduct'
+import AdminDashboard from './pages/AdminDashboard'
 import Toast from './components/Toast'
 import Chat from './components/Chat'
 
@@ -41,6 +42,14 @@ function App() {
             element={
               <AdminRoute>
                 <AddProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
               </AdminRoute>
             }
           />
