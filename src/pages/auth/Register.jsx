@@ -37,23 +37,23 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-primary">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-white/20 transition-all duration-300 hover:shadow-2xl">
+    <div className="min-h-[100dvh] md:h-auto md:py-20 flex items-center justify-center bg-gradient-primary px-4">
+      <div className="max-w-md w-full space-y-4 sm:space-y-6 p-6 sm:p-8 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-white/20 transition-all duration-300 hover:shadow-2xl">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="text-center text-2xl sm:text-3xl font-extrabold bg-gradient-primary bg-clip-text text-transparent">
             Đăng ký tài khoản
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Tham gia với chúng tôi
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-4 sm:mt-6 space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="rounded-lg bg-red-50/50 backdrop-blur-sm p-4 border border-red-100">
+            <div className="rounded-lg bg-red-50/50 backdrop-blur-sm p-3 sm:p-4 border border-red-100">
               <div className="text-sm text-red-700 font-medium">{error}</div>
             </div>
           )}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <div>
               <label htmlFor="name" className="sr-only">Họ tên</label>
               <input
@@ -61,7 +61,7 @@ export default function Register() {
                 name="name"
                 type="text"
                 required
-                className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 sm:text-sm bg-white/50 backdrop-blur-sm"
+                className="appearance-none rounded-lg relative block w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 text-sm bg-white/50 backdrop-blur-sm"
                 placeholder="Họ tên"
                 value={formData.name}
                 onChange={handleChange}
@@ -74,7 +74,7 @@ export default function Register() {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 sm:text-sm bg-white/50 backdrop-blur-sm"
+                className="appearance-none rounded-lg relative block w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 text-sm bg-white/50 backdrop-blur-sm"
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
@@ -87,7 +87,7 @@ export default function Register() {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 sm:text-sm bg-white/50 backdrop-blur-sm"
+                className="appearance-none rounded-lg relative block w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 text-sm bg-white/50 backdrop-blur-sm"
                 placeholder="Mật khẩu"
                 value={formData.password}
                 onChange={handleChange}
@@ -100,7 +100,7 @@ export default function Register() {
                 name="confirmPassword"
                 type="password"
                 required
-                className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 sm:text-sm bg-white/50 backdrop-blur-sm"
+                className="appearance-none rounded-lg relative block w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 text-sm bg-white/50 backdrop-blur-sm"
                 placeholder="Xác nhận mật khẩu"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -111,7 +111,7 @@ export default function Register() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+              className="group relative w-full flex justify-center py-2 sm:py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
             >
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg className="h-5 w-5 text-white/60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
