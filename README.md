@@ -75,3 +75,7 @@ ecommerce-frontend/
 ### Giảm giá
 - Áp dụng mã giảm giá
 - Giảm giá theo % hoặc số tiền cố định
+### Account test
+admin@gmail.com - 123
+user@gmail.com - 123
+
