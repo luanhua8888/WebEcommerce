@@ -24,7 +24,7 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <Toast />
       <Navbar />
-      <main className="container py-8">
+      <main className="container mx-auto px-3 py-8">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
@@ -58,9 +58,13 @@ function App() {
         </Routes>
       </main>
       <Chat />
-      <footer className="bg-gray-800 text-white py-6 mt-auto">
-        <div className="container text-center">
-          <p> ❤️‍🔥Mayiu❤️‍🔥  </p>
+      <footer className="bg-black/80 backdrop-blur-lg text-white py-4 mt-auto border-t border-white/10 shadow-[0_-2px_15px_-3px_rgba(0,123,255,0.2)]">
+        <div className="container mx-auto px-3">
+          <div className="relative flex justify-center items-center h-10 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent">
+            <p className="text-gray-300 hover:text-blue-400 transition-colors duration-300">
+              <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">❤️‍🔥Mayiu❤️‍🔥</span>
+            </p>
+          </div>
         </div>
       </footer>
     </div>

@@ -4,24 +4,31 @@ import { Link } from 'react-router-dom'
 const bannerData = [
   {
     id: 1,
-    title: "Summer Collection",
-    description: "Up to 50% off on selected items",
-    image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1920",
+    title: "Công nghệ tương lai",
+    description: "Khám phá thế giới công nghệ tiên tiến",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920",
     link: "/products"
   },
   {
     id: 2,
-    title: "New Electronics",
-    description: "Latest gadgets and accessories",
-    image: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?q=80&w=1920",
-    link: "/products?category=Electronics"
+    title: "Không gian vũ trụ",
+    description: "Trải nghiệm công nghệ đột phá",
+    image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1920",
+    link: "/products"
   },
   {
     id: 3,
-    title: "Home & Living",
-    description: "Make your home beautiful",
-    image: "https://images.unsplash.com/photo-1449247709967-d4461a6a6103?q=80&w=1920",
-    link: "/products?category=Home"
+    title: "Thiết bị thông minh",
+    description: "Nâng tầm cuộc sống với công nghệ",
+    image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=1920",
+    link: "/products"
+  },
+  {
+    id: 4,
+    title: "Gaming Gear",
+    description: "Trang bị tối ưu cho game thủ",
+    image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=1920",
+    link: "/products"
   }
 ]
 
@@ -49,36 +56,48 @@ function Banner() {
   }
 
   return (
-    <div className="relative h-[500px] overflow-hidden">
+    <div className="relative h-[600px] overflow-hidden">
       {/* Slides */}
       <div className="relative h-full">
         {bannerData.map((banner, index) => (
           <div
             key={banner.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 transition-all duration-1000 transform ${
+              index === currentSlide
+                ? 'opacity-100 scale-100'
+                : 'opacity-0 scale-105'
             }`}
             style={{
               pointerEvents: index === currentSlide ? 'auto' : 'none'
             }}
           >
-            <img
-              src={banner.image}
-              alt={banner.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40">
+            <div className="absolute inset-0 w-full h-full">
+              <img
+                src={banner.image}
+                alt={banner.title}
+                className="w-full h-full object-cover transform scale-105 transition-transform duration-[2s]"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 backdrop-blur-sm">
               <div className="container mx-auto px-4 h-full flex items-center">
-                <div className="max-w-xl text-white">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                <div
+                  className={`max-w-xl text-white transition-all duration-1000 transform ${
+                    index === currentSlide
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-10 opacity-0'
+                  }`}
+                >
+                  <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
                     {banner.title}
                   </h2>
-                  <p className="text-xl mb-8">{banner.description}</p>
+                  <p className="text-xl mb-8 text-gray-200">
+                    {banner.description}
+                  </p>
                   <Link
                     to={banner.link}
-                    className="inline-block bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                    className="inline-block bg-blue-500/80 backdrop-blur-md text-white px-8 py-3 rounded-full font-semibold border border-white/10 transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:scale-105 hover:bg-blue-600/80"
                   >
-                    Shop Now
+                    Khám phá ngay
                   </Link>
                 </div>
               </div>
